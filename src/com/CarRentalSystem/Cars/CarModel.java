@@ -37,7 +37,7 @@ public class CarModel implements Car {
     }
 
     public String toString() {
-        return this.carModel + " " + this.yearCreated + " " + this.type + " " + this.status;
+        return this.carModel + " " + this.yearCreated + " " + this.type + " " + "status is: " + this.status;
     }
 
     @Override

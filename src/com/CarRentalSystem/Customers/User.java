@@ -38,7 +38,7 @@ public class User implements Customer {
     public void rentCar(Car car) {
         if (rentCar == null) {
             this.rentedCars.add(car);
-            System.out.println(toString() + "," + LocalDateTime.now());
+            System.out.println(toString() + " rented car at:" + LocalDateTime.now());
             this.rentCar = car;
         } else {
             System.out.println("Customer already has a car.");
@@ -49,9 +49,11 @@ public class User implements Customer {
     public Optional<Car> returnCar() {
         if (this.rentCar != null) {
             Optional<Car> car = Optional.of(this.rentCar);
-            System.out.println(toString() + "," + LocalDateTime.now());
+            System.out.println(toString() + ", time of returning: " + LocalDateTime.now());
+            Car currentCar = car.get();
+            currentCar.changeStatus();
             this.rentCar = null;
-            return car;
+            return Optional.of(currentCar);
         }
         return Optional.empty();
     }
@@ -102,7 +104,16 @@ public class User implements Customer {
 
     @Override
     public String toCSV() {
-        String CSVCars = String.join(",", this.rentedCars.toString());
-        return this.fName + "," + this.lName + "," + this.username + "," + this.password + "-" + rentedCars;
+        if (!this.rentedCars.isEmpty()) {
+            StringBuilder cars = new StringBuilder();
+            for (var car : this.rentedCars) {
+                cars.append(car.toCSV());
+            }
+            return this.fName + "," + this.lName + "," + this.username + "," + this.password + "," + cars;
+        }
+        else {
+            return this.fName + "," + this.lName + "," + this.username + "," + this.password;
+        }
     }
+
 }

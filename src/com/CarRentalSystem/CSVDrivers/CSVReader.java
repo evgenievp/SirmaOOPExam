@@ -25,8 +25,15 @@ public class CSVReader {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             String read;
             while ((read = reader.readLine()) != null) {
-                String[] data = read.split(",");
-                carAssembly(data);
+                if (read.trim().isEmpty()) {
+                    break;
+                }
+                String[] data = read.split(";");
+                String model = data[0];
+                int year = Integer.parseInt(data[1]);
+                String type = data[2];
+                String status = data[3];
+                carAssembly(model, year, type, status);
             }
             return carsLoaded;
         } catch (FileNotFoundException e) {
@@ -37,33 +44,46 @@ public class CSVReader {
     }
 
 
-    public LinkedList<Customer> loadUsers() {
+    public LinkedList<Customer> getLoadedUsers() {
+        loadUsers();
+        return this.loadedUsers;
+    }
+
+    public void loadUsers() {
         File file = new File(usersPath);
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String read;
             while ((read = reader.readLine()) != null) {
+                if (read.trim().isEmpty()) {
+                    continue;
+                }
                 String[] data = read.split(",");
+                if (data.length < 4) {
+                    System.out.println("Invalid data line: " + read);
+                    continue;
+                }
                 String fName = data[0];
                 String lName = data[1];
                 String username = data[2];
                 String password = data[3];
+
                 if (data.length > 4) {
                     String[] cars = data[4].split(",");
+                    if (cars.length < 1) {
+                        continue;
+                    }
                     userAssembly(fName, lName, username, password, cars);
-                }
-                else {
+                } else {
                     userAssembly(fName, lName, username, password);
                 }
-                read = reader.readLine();
-
             }
-            return loadedUsers;
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     // first Cars Assembly method - it gets string and assembly Car class
     public LinkedList<Car> carAssembly(String[] cars) {
@@ -75,6 +95,7 @@ public class CSVReader {
             String type = currentCar[2];
             String status = currentCar[3];
             Car car = new CarModel(model, year, type, status);
+            this.carsLoaded.add(car);
             assembledCars.add(car);
         }
         return assembledCars;

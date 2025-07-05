@@ -8,9 +8,7 @@ import com.CarRentalSystem.Interfaces.Car;
 import com.CarRentalSystem.Interfaces.Customer;
 import com.CarRentalSystem.Interfaces.ServiceInterface;
 
-import java.time.Period;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -35,10 +33,13 @@ public class CarRentalService implements ServiceInterface {
     }
 
     public void loadData() {
-        customers = reader.loadUsers();
+        customers = reader.getLoadedUsers();
         cars = reader.loadCars();
     }
 
+    public LinkedList<Customer> getCustomers() {
+        return this.customers;
+    }
 
     @Override
     public void addCar() {
