@@ -1,23 +1,26 @@
 package com;
 import com.CarRentalSystem.Services.CarRentalService;
 import com.CarRentalSystem.managers.RentalManager;
+import com.CarRentalSystem.utils.RandomClass;
+
+import java.util.Scanner;
 
 public class CarRentalApp {
     public static void main(String[] args) {
-
-        CarRentalService service = new CarRentalService();
-        RentalManager manager = new RentalManager(service);
+        Scanner sc = new Scanner(System.in);
+        CarRentalService service = new CarRentalService(sc);
+        RentalManager manager = new RentalManager(service, sc);
 
         System.out.println("Welcome to the Car Rental System");
-        displayCommands();
+        manager.displayCommands();
 
         boolean isRunning = true;
         String command;
 
         while (isRunning) {
-            command = ReadLine();
+            command = sc.nextLine();
             isRunning = manager.execute(command);
-
+            System.out.println("Press anykey to see again commands.");
             // Add Car
             // 1, Toyota Corolla, 2019, Sedan, Available
             // Rent Car

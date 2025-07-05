@@ -16,7 +16,7 @@ public interface ManagerInterface {
     void saveAndExit();
     void listRentableCars();
     void listSearchableCars();
-    void execute();
+    void execute(String command);
     void displayCommands();
 
 
