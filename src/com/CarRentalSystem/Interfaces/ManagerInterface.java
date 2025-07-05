@@ -12,6 +12,7 @@ public interface ManagerInterface {
     boolean saveAndExit();
     boolean execute(int command);
     void displayCommands();
+    void listAvailableCars();
 
 
 }

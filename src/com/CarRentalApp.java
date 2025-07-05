@@ -15,8 +15,8 @@ public class CarRentalApp {
         Scanner sc = new Scanner(System.in);
 
         CSVWriter writer = new CSVWriter();
-
         CSVReader reader = new CSVReader();
+
         Authenticate auth = new Authenticate(reader, writer);
         CarRentalService service = new CarRentalService(sc, reader, writer);
         RentalManager manager = new RentalManager(service, sc);

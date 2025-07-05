@@ -49,6 +49,10 @@ public class RentalManager implements ManagerInterface {
     public void removeCar() {
         service.removeCar();
     }
+    @Override
+    public void listAvailableCars() {
+        service.listAvailableCars();
+    }
 
     @Override
     public void addDriver(Customer customer) {
@@ -91,6 +95,10 @@ public class RentalManager implements ManagerInterface {
             }
             case 7 -> {
                 removeCar();
+                return true;
+            }
+            case 8 -> {
+                listAvailableCars();
                 return true;
             }
             default -> {

@@ -132,8 +132,10 @@ public class CarRentalService implements ServiceInterface {
     @Override
     public void listCars() {
         if (this.cars.size() > 0) {
+            int count = 0;
             for (var car : this.cars) {
-                System.out.println(car);
+                System.out.println(count + " " +car);
+                count++;
             }
         }
         else {
@@ -145,6 +147,7 @@ public class CarRentalService implements ServiceInterface {
     public Optional<Car> searchModelByType(String type) {
         for (var car : this.cars) {
             if (car.getModel().equals(type)) {
+                System.out.println(car);
                 return Optional.of(car);
             }
         }
@@ -202,7 +205,8 @@ public class CarRentalService implements ServiceInterface {
                 5. Return a car.
                 6. Search car by model type.
                 7. Remove a car.
-                8. Save & exit (Sign out).
+                8. List available cars.
+                9. Save & exit (Sign out).
                 --------------------------------------
                 """;
         System.out.println(commands);
