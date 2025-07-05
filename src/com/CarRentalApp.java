@@ -2,7 +2,6 @@ package com;
 import com.CarRentalSystem.Auth.Authenticate;
 import com.CarRentalSystem.CSVDrivers.CSVReader;
 import com.CarRentalSystem.CSVDrivers.CSVWriter;
-import com.CarRentalSystem.Interfaces.Customer;
 import com.CarRentalSystem.Customers.User;
 import com.CarRentalSystem.Services.CarRentalService;
 import com.CarRentalSystem.managers.RentalManager;
@@ -18,17 +17,15 @@ public class CarRentalApp {
         Authenticate auth = new Authenticate();
         CarRentalService service = new CarRentalService(sc, reader, writer);
         RentalManager manager = new RentalManager(service, sc);
-
-        System.out.println("***Welcome to the Car Rental System***");
-
         boolean isRunning = true;
-        int command;
         boolean signedIn = false;
-
+        int command;
+        service.loadData();
+        System.out.println("***Welcome to the Car Rental System***");
+        System.out.println("Press 1 for Sign In \nPress 2 for Sign Up");
         while (isRunning) {
             // Maybe this is not needed, but I believe elementary authentication is need.
             // I will not put in security rules, just otherwise it seems schizophrenic to me.
-            System.out.println("Press 1 for Sign In \nPress 2 for Sign Up");
             while (!signedIn) {
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
@@ -55,7 +52,7 @@ public class CarRentalApp {
                     String lName = sc.nextLine();
                     User newUser = new User(firstName, lName, username, password);
                     signedIn = auth.signUp(newUser);
-                    service.setUser(newUser);
+                    service.addDriver(newUser);
                 }
             }
             manager.displayCommands();
@@ -66,6 +63,5 @@ public class CarRentalApp {
 
         }
     }
-
 }
 

@@ -1,5 +1,6 @@
 package com.CarRentalSystem.managers;
 
+import com.CarRentalSystem.Interfaces.Customer;
 import com.CarRentalSystem.Interfaces.ManagerInterface;
 import com.CarRentalSystem.Services.CarRentalService;
 
@@ -50,19 +51,53 @@ public class RentalManager implements ManagerInterface {
     }
 
     @Override
-    public void addDriver() {
-        service.addDriver();
+    public void addDriver(Customer customer) {
+        service.addDriver(customer);
     }
 
     @Override
-    public void saveAndExit() {
-        service.saveAndExit();
+    public boolean saveAndExit() {
+        return service.saveAndExit();
     }
-
 
     @Override
     public boolean execute(int command) {
-        return service.execute(command);
+        switch (command) {
+            case 1 -> {
+                addCar();
+                return true;
+            }
+            case 2 -> {
+                rentCar();
+                return true;
+            }
+            case 3 -> {
+                editCar();
+                return true;
+            }
+            case 4 -> {
+                listCars();
+                return true;
+            }
+            case 5 -> {
+                returnCar();
+                return true;
+            }
+            case 6 -> {
+                System.out.println("Enter model of searched car");
+                String model = sc.nextLine();
+                searchModelByType(model);
+                return true;
+            }
+            case 7 -> {
+                removeCar();
+                return true;
+            }
+            default -> {
+                saveAndExit();
+                return false;
+            }
+        }
     }
 
     @Override

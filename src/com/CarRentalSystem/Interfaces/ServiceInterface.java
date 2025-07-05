@@ -11,9 +11,8 @@ public interface ServiceInterface {
     Optional<Car> searchModelByType(String type);
     void listAvailableCars();
     void removeCar();
-    void addDriver();
-    void saveAndExit();
-    boolean execute(int command);
+    void addDriver(Customer custoemr);
+    boolean saveAndExit();
     void displayCommands();
 
 

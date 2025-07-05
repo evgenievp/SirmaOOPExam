@@ -8,8 +8,8 @@ public interface ManagerInterface {
     void listCars();
     void searchModelByType(String type);
     void removeCar();
-    void addDriver();
-    void saveAndExit();
+    void addDriver(Customer customer);
+    boolean saveAndExit();
     boolean execute(int command);
     void displayCommands();
 

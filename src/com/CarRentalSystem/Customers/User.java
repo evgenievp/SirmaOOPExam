@@ -4,6 +4,7 @@ import com.CarRentalSystem.Interfaces.Car;
 import com.CarRentalSystem.Interfaces.Customer;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -28,7 +29,10 @@ public class User implements Customer {
         this.rentCar = null;
     }
 
-
+    @Override
+    public void setRentedCars(LinkedList<Car> cars) {
+        this.rentedCars.addAll(cars);
+    }
 
     @Override
     public void rentCar(Car car) {
@@ -36,8 +40,7 @@ public class User implements Customer {
             this.rentedCars.add(car);
             System.out.println(toString() + "," + LocalDateTime.now());
             this.rentCar = car;
-        }
-        else {
+        } else {
             System.out.println("Customer already has a car.");
         }
     }
@@ -53,17 +56,28 @@ public class User implements Customer {
         return Optional.empty();
     }
 
+    public boolean hasCar() {
+        if (this.rentCar == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public void setCars(Car... cars) {
+        this.rentedCars.addAll(Arrays.asList(cars));
+    }
+
     @Override
     public void displayRentedCars() {
         if (this.rentedCars.isEmpty()) {
             System.out.println("Customer has not rented cars already.");
-        }
-        else {
+        } else {
             for (Car car : this.rentedCars) {
                 System.out.println(car);
             }
         }
     }
+
     @Override
     public String toString() {
         return fName + " " + lName;
@@ -87,8 +101,8 @@ public class User implements Customer {
     }
 
     @Override
-    public String toCSV(){
-        String CSVCars = String.join("," , this.rentedCars.toString());
-        return this.fName +"," + this.lName + "," + rentedCars;
+    public String toCSV() {
+        String CSVCars = String.join(",", this.rentedCars.toString());
+        return this.fName + "," + this.lName + "," + this.username + "," + this.password + "-" + rentedCars;
     }
 }

@@ -15,6 +15,12 @@ public class CarModel implements Car {
         this.status = "Available";
     }
 
+    public CarModel(String carModel, int yearCreated, String type, String status) {
+        this(carModel, yearCreated, type);
+        this.status = status;
+    }
+
+
     @Override
     public String getModel() {
         return this.carModel;
@@ -36,7 +42,7 @@ public class CarModel implements Car {
 
     @Override
     public String toCSV() {
-        return this.carModel + "," + this.yearCreated + "," + this.type + "," + this.status + ",";
+        return carModel + ";" + yearCreated + ";" + type + ";" + status + ",";
     }
 
     @Override
@@ -63,6 +69,7 @@ public class CarModel implements Car {
             this.status = "Available";
         }
     }
+
 
 
 }
