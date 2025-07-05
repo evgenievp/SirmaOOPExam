@@ -1,13 +1,14 @@
 package com.CarRentalSystem.Customers;
 
 import com.CarRentalSystem.Interfaces.Car;
+import com.CarRentalSystem.Interfaces.Customer;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class Customer implements com.CarRentalSystem.Interfaces.Customer {
+public class User implements Customer {
     private String fName;
     private String lName;
     private String username;
@@ -15,8 +16,9 @@ public class Customer implements com.CarRentalSystem.Interfaces.Customer {
     LocalDateTime dateTime;
     private List<Car> rentedCars;
     private Car rentCar;
+    private Customer operatingUser;
 
-    public Customer(String fName, String lName, String username, String password) {
+    public User(String fName, String lName, String username, String password) {
         this.fName = fName;
         this.lName = lName;
         this.username = username;
@@ -25,6 +27,8 @@ public class Customer implements com.CarRentalSystem.Interfaces.Customer {
         this.rentedCars = new LinkedList<>();
         this.rentCar = null;
     }
+
+
 
     @Override
     public void rentCar(Car car) {

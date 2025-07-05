@@ -3,6 +3,7 @@ package com.CarRentalSystem.Services;
 import com.CarRentalSystem.CSVDrivers.CSVReader;
 import com.CarRentalSystem.CSVDrivers.CSVWriter;
 import com.CarRentalSystem.Cars.CarModel;
+import com.CarRentalSystem.Customers.User;
 import com.CarRentalSystem.Interfaces.Car;
 import com.CarRentalSystem.Interfaces.Customer;
 import com.CarRentalSystem.Interfaces.ServiceInterface;
@@ -18,6 +19,7 @@ public class CarRentalService implements ServiceInterface {
     private CSVReader reader;
     private List<Car> cars;
     private List<Customer> customers;
+    private User operatingUser = null;
 
     public CarRentalService(Scanner sc, CSVReader reader, CSVWriter writer) {
         this.sc = sc;
@@ -26,7 +28,9 @@ public class CarRentalService implements ServiceInterface {
         this.reader = reader;
         this.writer = writer;
     }
-
+    public void setUser(User user) {
+        this.operatingUser = user;
+    }
 
     @Override
     public void addCar() {
@@ -55,7 +59,7 @@ public class CarRentalService implements ServiceInterface {
             else {
                 Car wantedCar = this.cars.get(carNum);
                 wantedCar.changeStatus();
-                System.out.println("you rent a " + wantedCar);
+                System.out.println(this.operatingUser.getUsername() + " rent a " + wantedCar);
             }
         }
     }
@@ -120,7 +124,7 @@ public class CarRentalService implements ServiceInterface {
                 6. Search car by model type.
                 7. Remove a car.
                 8. Add driver.
-                9. Save & exit.
+                9. Save & exit (Sign out).
                 --------------------------------------
                 """;
         System.out.println(commands);

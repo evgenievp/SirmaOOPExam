@@ -2,6 +2,8 @@ package com;
 import com.CarRentalSystem.Auth.Authenticate;
 import com.CarRentalSystem.CSVDrivers.CSVReader;
 import com.CarRentalSystem.CSVDrivers.CSVWriter;
+import com.CarRentalSystem.Interfaces.Customer;
+import com.CarRentalSystem.Customers.User;
 import com.CarRentalSystem.Services.CarRentalService;
 import com.CarRentalSystem.managers.RentalManager;
 
@@ -26,29 +28,38 @@ public class CarRentalApp {
         while (isRunning) {
             // Maybe this is not needed, but I believe elementary authentication is need.
             // I will not put in security rules, just otherwise it seems schizophrenic to me.
+            System.out.println("Press 1 for Sign In \nPress 2 for Sign Up");
             while (!signedIn) {
-                System.out.println("Press 1 for Sign In \n2Press 2 for Sign Up");
                 int choice = Integer.parseInt(sc.nextLine());
                 if (choice == 1) {
                     System.out.println("Enter username");
-                    String user = sc.nextLine();
+                    String username = sc.nextLine();
                     System.out.println("Enter password");
                     String password = sc.nextLine();
-                    signedIn = auth.signIn(user, password);
+                    User user = auth.getUser(username);
+                    signedIn = auth.signIn(username, password);
                 }
                 else {
+                    boolean restart = false;
+                    System.out.println("Enter username");
+                    String username = sc.nextLine();
+                    System.out.println("Enter password name");
+                    restart = auth.checkUsername(username);
+                    String password = sc.nextLine();
+                    if (restart) {
+                        continue;
+                    }
                     System.out.println("Enter first name");
                     String firstName = sc.nextLine();
                     System.out.println("Enter last name");
                     String lName = sc.nextLine();
-                    System.out.println("Enter username name");
-                    String username = sc.nextLine();
-                    System.out.println("Enter password name");
-                    String password = sc.next();
-                    signedIn = auth.signUp(firstName, lName, username, password);
+                    User newUser = new User(firstName, lName, username, password);
+                    signedIn = auth.signUp(newUser);
+                    service.setUser(newUser);
                 }
             }
             manager.displayCommands();
+            System.out.println("Awaiting commands...");
             command = Integer.parseInt(sc.nextLine());
             isRunning = manager.execute(command);
 
