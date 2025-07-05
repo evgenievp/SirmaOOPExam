@@ -1,22 +1,16 @@
-package com.CarRentalSystem.managers;
-
-import com.CarRentalSystem.Interfaces.Car;
-
-import java.util.Optional;
+package com.CarRentalSystem.Interfaces;
 
 public interface ManagerInterface {
     void addCar();
     void rentCar();
     void returnCar();
     void editCar();
-    void listCar();
+    void listCars();
     void searchModelByType(String type);
     void removeCar();
     void addDriver();
     void saveAndExit();
-    void listRentableCars();
-    void listSearchableCars();
-    void execute(String command);
+    boolean execute(int command);
     void displayCommands();
 
 

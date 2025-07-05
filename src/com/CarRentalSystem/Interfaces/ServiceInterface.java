@@ -7,15 +7,14 @@ public interface ServiceInterface {
     void rentCar();
     void returnCar();
     void editCar();
-    void listCar();
+    void listCars();
     Optional<Car> searchModelByType(String type);
+    void listAvailableCars();
     void removeCar();
     void addDriver();
     void saveAndExit();
-    void listRentableCars();
-    void listSearchableCars();
-
-
+    boolean execute(int command);
+    void displayCommands();
 
 
 }
