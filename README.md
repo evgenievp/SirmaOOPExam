@@ -8,6 +8,7 @@ Main functionalities:
 - login
 - add car
 - list cars
+- list available cars
 - rent cars
 - return cars
 - save and exit
