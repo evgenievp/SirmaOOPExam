@@ -13,3 +13,5 @@ Main functionalities:
 - return cars
 - save and exit
 - load data from csv files
+
+App already have configured cars and test user: ivanovI with password: 1234
