@@ -30,6 +30,7 @@ public class CarRentalApp {
             // I will not put in security rules, just otherwise it seems schizophrenic to me.
             while (!signedIn) {
                 try {
+
                     service.loadData();
                     auth.setCustomers(service.getCustomers());
                     System.out.println("Press 1 for Sign In \nPress 2 for Sign Up");
@@ -67,21 +68,17 @@ public class CarRentalApp {
                         User newUser = new User(firstName, lName, username, password);
                         signedIn = auth.signUp(newUser);
                         service.addDriver(newUser);
-                    } else {
-                        System.out.println("Try again.");
                     }
-
-                } catch (Exception e) {
-                    System.out.println("Something went wrong");
+                }catch (Exception e){
+                    System.out.println("Something went wrong. Try again.");
                 }
-                manager.displayCommands();
-                System.out.println("Awaiting commands...");
-                command = Integer.parseInt(sc.nextLine());
-                isRunning = manager.execute(command);
-
-
             }
+            manager.displayCommands();
+            System.out.println("Awaiting commands...");
+            command = Integer.parseInt(sc.nextLine());
+            isRunning = manager.execute(command);
         }
     }
 }
+
 
