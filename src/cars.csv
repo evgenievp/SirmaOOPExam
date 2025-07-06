@@ -1,21 +1,21 @@
-bmw;2000;sedan;Available,
-audi;2015;suv;Available,
-mercedes;2012;sedan;Not Available,
-toyota;2018;hatchback;Available,
-honda;2011;coupe;Not Available,
-ford;2020;suv;Available,
-volkswagen;2017;sedan;Available,
-nissan;2016;truck;Not Available,
-chevrolet;2019;convertible;Available,
-kia;2013;sedan;Not Available,
-mazda;2021;suv;Available,
-hyundai;2014;hatchback;Available,
-subaru;2010;wagon;Not Available,
-volvo;2016;sedan;Available,
-peugeot;2012;hatchback;Not Available,
-skoda;2017;suv;Available,
-renault;2019;sedan;Available,
-fiat;2015;convertible;Not Available,
-opel;2011;hatchback;Available,
-citroen;2013;wagon;Not Available,
-jeep;2022;suv;Available,
+bmw;2000;sedan;Available
+audi;2015;suv;Available
+mercedes;2012;sedan;Not Available
+toyota;2018;hatchback;Available
+honda;2011;coupe;Not Available
+ford;2020;suv;Available
+volkswagen;2017;sedan;Available
+nissan;2016;truck;Not Available
+chevrolet;2019;convertible;Available
+kia;2013;sedan;Not Available
+mazda;2021;suv;Available
+hyundai;2014;hatchback;Available
+subaru;2010;wagon;Not Available
+volvo;2016;sedan;Available
+peugeot;2012;hatchback;Not Available
+skoda;2017;suv;Available
+renault;2019;sedan;Available
+fiat;2015;convertible;Not Available
+opel;2011;hatchback;Available
+citroen;2013;wagon;Not Available
+jeep;2022;suv;Available

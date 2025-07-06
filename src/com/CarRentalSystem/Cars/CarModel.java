@@ -42,7 +42,7 @@ public class CarModel implements Car {
 
     @Override
     public String toCSV() {
-        return carModel + ";" + yearCreated + ";" + type + ";" + status + ",";
+        return carModel + ";" + yearCreated + ";" + type + ";" + status;
     }
 
     @Override

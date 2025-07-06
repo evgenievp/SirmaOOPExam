@@ -101,9 +101,13 @@ public class RentalManager implements ManagerInterface {
                 listAvailableCars();
                 return true;
             }
-            default -> {
+            case 9 -> {
                 saveAndExit();
                 return false;
+            }
+            default -> {
+                System.out.println("Unsupported command.");
+                return true;
             }
         }
     }

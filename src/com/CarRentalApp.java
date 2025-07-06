@@ -1,4 +1,5 @@
 package com;
+
 import com.CarRentalSystem.Auth.Authenticate;
 import com.CarRentalSystem.CSVDrivers.CSVReader;
 import com.CarRentalSystem.CSVDrivers.CSVWriter;
@@ -28,52 +29,58 @@ public class CarRentalApp {
             // Maybe this is not needed, but I believe elementary authentication is need.
             // I will not put in security rules, just otherwise it seems schizophrenic to me.
             while (!signedIn) {
-                service.loadData();
-                auth.setCustomers(service.getCustomers());
-                System.out.println("Press 1 for Sign In \nPress 2 for Sign Up");
-                int choice = Integer.parseInt(sc.nextLine());
-                if (choice == 1) {
-                    System.out.println("Enter username");
-                    String username = sc.nextLine();
-                    System.out.println("Enter password");
-                    String password = sc.nextLine();
-                    Customer user = auth.getUser(username);
-                    service.setUser((User) user);
-                    if (user == null) {
-                        System.out.println("wrong user or password");
-                        continue;
+                try {
+                    service.loadData();
+                    auth.setCustomers(service.getCustomers());
+                    System.out.println("Press 1 for Sign In \nPress 2 for Sign Up");
+                    int choice = Integer.parseInt(sc.nextLine());
+                    if (choice == 1) {
+                        System.out.println("Enter username");
+                        String username = sc.nextLine();
+                        System.out.println("Enter password");
+                        String password = sc.nextLine();
+                        Customer user = auth.getUser(username);
+                        service.setUser((User) user);
+                        if (user == null) {
+                            System.out.println("wrong user or password");
+                            continue;
+                        }
+                        signedIn = auth.signIn(username, password);
                     }
-                    signedIn = auth.signIn(username, password);
+                    if (choice == 2) {
+                        boolean restart = false;
+                        System.out.println("Enter new username");
+                        String username = sc.nextLine();
+                        System.out.println("Enter new password");
+                        restart = auth.checkUsername(username);
+                        String password = sc.nextLine();
+                        if (restart) {
+                            continue;
+                        } else {
+                            User user = (User) auth.getUser(username);
+                            service.setUser(user);
+                        }
+                        System.out.println("Enter first name");
+                        String firstName = sc.nextLine();
+                        System.out.println("Enter last name");
+                        String lName = sc.nextLine();
+                        User newUser = new User(firstName, lName, username, password);
+                        signedIn = auth.signUp(newUser);
+                        service.addDriver(newUser);
+                    } else {
+                        System.out.println("Try again.");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Something went wrong");
                 }
-                else {
-                    boolean restart = false;
-                    System.out.println("Enter new username");
-                    String username = sc.nextLine();
-                    System.out.println("Enter new password");
-                    restart = auth.checkUsername(username);
-                    String password = sc.nextLine();
-                    if (restart) {
-                        continue;
-                    }
-                    else {
-                        User user = (User) auth.getUser(username);
-                        service.setUser(user);
-                    }
-                    System.out.println("Enter first name");
-                    String firstName = sc.nextLine();
-                    System.out.println("Enter last name");
-                    String lName = sc.nextLine();
-                    User newUser = new User(firstName, lName, username, password);
-                    signedIn = auth.signUp(newUser);
-                    service.addDriver(newUser);
-                }
+                manager.displayCommands();
+                System.out.println("Awaiting commands...");
+                command = Integer.parseInt(sc.nextLine());
+                isRunning = manager.execute(command);
+
+
             }
-            manager.displayCommands();
-            System.out.println("Awaiting commands...");
-            command = Integer.parseInt(sc.nextLine());
-            isRunning = manager.execute(command);
-
-
         }
     }
 }

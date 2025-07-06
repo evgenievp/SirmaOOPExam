@@ -79,6 +79,9 @@ public class CarRentalService implements ServiceInterface {
         if (operatingUser.hasCar()) {
             this.operatingUser.returnCar();
         }
+        else {
+            System.out.println("User haven't car from our system.");
+        }
     }
 
     @Override
@@ -89,50 +92,57 @@ public class CarRentalService implements ServiceInterface {
 
     @Override
     public void editCar() {
-        listCars();
-        System.out.println("Choose car number which you want to edit.");
-        int choice = Integer.parseInt(sc.nextLine());
-        Car carForEdit = this.cars.get(choice);
-        String editingCommands = """
-                if you want to edit car model, press 1.
-                For editing car year of creation, press 2.
-                For editing car type press, 3.
-                For editing car status, press 4.
-                """;
-        System.out.println(editingCommands);
-        int editCommand = Integer.parseInt(sc.nextLine());
-        switch (editCommand) {
-            case 1: {
-                System.out.println("Enter new model");
-                String newModel = sc.nextLine();
-                carForEdit.setModel(newModel);
-                break;
-            }
-            case 2: {
-                System.out.println("Enter new year of creation");
-                int newYearOfCreation = Integer.parseInt(sc.nextLine());
-                carForEdit.setYear(newYearOfCreation);
-                break;
-            }
-            case 3: {
-                System.out.println("Enter new type");
-                String newType = sc.nextLine();
-                carForEdit.setType(newType);
-                break;
+        if (this.cars.isEmpty()) {
+            System.out.println("No cars for editing.");
+        }
+        else {
+            listCars();
+            System.out.println("Choose car number which you want to edit.");
+            int choice = Integer.parseInt(sc.nextLine());
+            Car carForEdit = this.cars.get(choice);
+            String editingCommands = """
+                    if you want to edit car model, press 1.
+                    For editing car year of creation, press 2.
+                    For editing car type press, 3.
+                    For editing car status, press 4.
+                    """;
+            System.out.println(editingCommands);
+            int editCommand = Integer.parseInt(sc.nextLine());
+            switch (editCommand) {
+                case 1: {
+                    System.out.println("Enter new model");
+                    String newModel = sc.nextLine();
+                    carForEdit.setModel(newModel);
+                    break;
+                }
+                case 2: {
+                    System.out.println("Enter new year of creation");
+                    int newYearOfCreation = Integer.parseInt(sc.nextLine());
+                    carForEdit.setYear(newYearOfCreation);
+                    break;
+                }
+                case 3: {
+                    System.out.println("Enter new type");
+                    String newType = sc.nextLine();
+                    carForEdit.setType(newType);
+                    break;
 
-            }
-            default: {
-                carForEdit.changeStatus();
-                System.out.println("Status changed");
-                break;
+                }
+                case 4: {
+                    carForEdit.changeStatus();
+                    System.out.println("Status changed");
+                    break;
+                }
+                default: {
+                    System.out.println("Unsupported command");
+                }
             }
         }
     }
 
     @Override
     public void listCars() {
-        this.cars = reader.loadCars();
-        if (this.cars.size() > 0) {
+        if (!this.cars.isEmpty()) {
             int count = 0;
             for (var car : this.cars) {
                 System.out.println(count + " " +car);
@@ -146,34 +156,50 @@ public class CarRentalService implements ServiceInterface {
 
     @Override
     public Optional<Car> searchModelByType(String type) {
-        for (var car : this.cars) {
-            if (car.getModel().equals(type)) {
-                System.out.println(car);
-                return Optional.of(car);
+        if (this.cars.isEmpty()) {
+            System.out.println("No cars in car lot.");
+            return Optional.empty();
+        } else {
+            for (var car : this.cars) {
+                if (car.getModel().equals(type)) {
+                    System.out.println(car);
+                    return Optional.of(car);
+                }
             }
         }
+        System.out.println("No cars of that type");
         return Optional.empty();
     }
 
     @Override
     public void listAvailableCars() {
-        int count = 0;
-        for (Car car : this.cars) {
-            if (car.getStatus().equals("Available")) {
-                System.out.println(count + " " + car);
-                count++;
+        if (this.cars.isEmpty()) {
+            System.out.println("No available cars.");
+        }
+        else {
+            int count = 0;
+            for (var car : this.cars) {
+                if (car.getStatus().equals("Available")) {
+                    System.out.println(count + " " + car);
+                    count++;
+                }
             }
         }
     }
 
     @Override
     public void removeCar() {
-        listCars();
-        System.out.println("Enter number of car, which will be removed");
-        int choice = Integer.parseInt(sc.nextLine());
-        Car car = this.cars.get(choice);
-        this.cars.remove(choice);
-        System.out.println("Car " + car + " has been removed.");
+        if (this.cars.isEmpty()) {
+            System.out.println("There are no cars.");
+        }
+        else {
+            listCars();
+            System.out.println("Enter number of car, which will be removed");
+            int choice = Integer.parseInt(sc.nextLine());
+            Car car = this.cars.get(choice);
+            this.cars.remove(choice);
+            System.out.println("Car " + car + " has been removed.");
+        }
     }
 
 
