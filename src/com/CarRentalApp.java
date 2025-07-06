@@ -25,13 +25,12 @@ public class CarRentalApp {
         boolean signedIn = false;
         int command;
         System.out.println("***Welcome to the Car Rental System***");
+        service.loadData();
         while (isRunning) {
             // Maybe this is not needed, but I believe elementary authentication is need.
             // I will not put in security rules, just otherwise it seems schizophrenic to me.
             while (!signedIn) {
                 try {
-
-                    service.loadData();
                     auth.setCustomers(service.getCustomers());
                     System.out.println("Press 1 for Sign In \nPress 2 for Sign Up");
                     int choice = Integer.parseInt(sc.nextLine());
