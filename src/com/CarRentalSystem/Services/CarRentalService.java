@@ -131,6 +131,7 @@ public class CarRentalService implements ServiceInterface {
 
     @Override
     public void listCars() {
+        this.cars = reader.loadCars();
         if (this.cars.size() > 0) {
             int count = 0;
             for (var car : this.cars) {

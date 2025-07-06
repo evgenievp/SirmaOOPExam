@@ -104,6 +104,7 @@ public class CSVReader {
     // Main car assembly, It is triggered by loadCars method.
     public void carAssembly(String model, int year, String type, String status) {
         Car car = new CarModel(model, year, type, status);
+        this.carsLoaded.add(car);
     }
 
     // user asssembly - triggered by load users.
